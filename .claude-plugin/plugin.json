@@ -1,0 +1,6 @@
+{
+  "name": "intercheck",
+  "version": "0.1.0",
+  "description": "Code quality guards and session health monitoring",
+  "author": "MK"
+}
