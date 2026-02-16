@@ -1,9 +1,9 @@
 {
   "name": "intercheck",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Code quality guards and session health monitoring",
   "author": "MK",
-  "hooks": "./.claude-plugin/hooks.json",
+  "hooks": "./hooks/hooks.json",
   "skills": [
     "./skills/status/SKILL.md"
   ]
