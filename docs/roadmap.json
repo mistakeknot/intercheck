@@ -1,0 +1,15 @@
+{
+  "module_summary": "Intercheck is the quality and session-health layer for Claude Code and Codex operations, focused on preventing unsafe edits before damage occurs.",
+  "roadmap": {
+    "now": [
+      {"id": "ICHK-N1", "title": "Standardize pre-tool quality policy gates for high-risk file operations across hooks.", "priority": "P1"}
+    ],
+    "next": [
+      {"id": "ICHK-N2", "title": "Add Codex/Clavain-aware quality profiles and policy drift alerts.", "priority": "P2"},
+      {"id": "ICHK-N3", "title": "Publish shared quality presets and rollout playbooks for teams.", "priority": "P2"},
+      {"id": "ICHK-L1", "title": "Build a rule-pack market for reusable quality configurations.", "priority": "P2"}
+    ],
+    "later": [
+    ]
+  }
+}
