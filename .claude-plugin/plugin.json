@@ -5,8 +5,7 @@
   "author": {
     "name": "MK"
   },
-  "hooks": "./hooks/hooks.json",
   "skills": [
-    "./skills/status/SKILL.md"
+    "./skills/status"
   ]
 }
