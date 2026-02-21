@@ -1,6 +1,6 @@
 {
   "name": "intercheck",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Code quality guards and session health monitoring",
   "author": {
     "name": "MK"
