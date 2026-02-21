@@ -116,7 +116,28 @@ case "$LEVEL" in
       '{"additionalContext": $msg}'
     ;;
   orange)
-    jq -n --arg msg "Context pressure is high (pressure: $PRESSURE, ~${EST_TOKENS} tokens). Finish current work and commit. Avoid launching new subagents." \
+    # Smart checkpoint: signal intermem via interband at orange pressure
+    _icm_checkpoint_msg=""
+    _icm_last_checkpoint="/tmp/intercheck-intermem-checkpoint-${SID}"
+    # Atomic rate-limit: mkdir is POSIX-atomic on local filesystems
+    _icm_cp_lock="/tmp/intercheck-cp-lock-${SID}"
+    if [[ ! -f "$_icm_last_checkpoint" || $(( NOW - $(stat -c %Y "$_icm_last_checkpoint" 2>/dev/null || echo 0) )) -gt 900 ]]; then
+      if mkdir "$_icm_cp_lock" 2>/dev/null; then
+        touch "$_icm_last_checkpoint" 2>/dev/null || true
+        rmdir "$_icm_cp_lock" 2>/dev/null || true
+        # Signal intermem via interband (requires Task 1's interband sourcing)
+        if [[ -n "${_icm_ib_lib:-}" ]]; then
+          _icm_cp_payload=$(jq -n -c --argjson ts "$NOW" '{"trigger":"orange_pressure","ts":$ts}')
+          _icm_cp_file=$(interband_path "intercheck" "checkpoint" "$SID" 2>/dev/null) || _icm_cp_file=""
+          if [[ -n "$_icm_cp_file" ]]; then
+            interband_write "$_icm_cp_file" "intercheck" "checkpoint_needed" "$SID" "$_icm_cp_payload" 2>/dev/null || true
+            interband_prune_channel "intercheck" "checkpoint" 2>/dev/null || true
+            _icm_checkpoint_msg=" Consider synthesizing session memory before continuing."
+          fi
+        fi
+      fi
+    fi
+    jq -n --arg msg "Context pressure is high (pressure: $PRESSURE, ~${EST_TOKENS} tokens). Finish current work and commit. Avoid launching new subagents.${_icm_checkpoint_msg}" \
       '{"additionalContext": $msg}'
     ;;
   yellow)
