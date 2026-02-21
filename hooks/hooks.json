@@ -2,7 +2,7 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Read|Edit|Write|Bash|Grep|Glob|Task|WebFetch|WebSearch|NotebookEdit|MultiEdit",
+        "matcher": "Edit|Write|Bash|Task|NotebookEdit|MultiEdit",
         "hooks": [
           {
             "type": "command",
