@@ -33,7 +33,7 @@ EST_TOKENS=$(echo "$STATE" | jq -r '.est_tokens // 0')
 DECAY=0
 if [[ "$LAST_TS" -gt 0 ]]; then
   ELAPSED=$((NOW - LAST_TS))
-  DECAY=$(python3 -c "print(round($ELAPSED / 600.0 * 0.5, 2))" 2>/dev/null || echo "0")
+  DECAY=$(awk "BEGIN{printf \"%.2f\", $ELAPSED / 600.0 * 0.5}" 2>/dev/null || echo "0")
 fi
 
 # Call weight: heavy tools consume more context
@@ -47,7 +47,7 @@ NEW_TOKENS=$((OUTPUT_LEN / 4))
 EST_TOKENS=$((EST_TOKENS + NEW_TOKENS))
 
 # Pressure update: decay old pressure, add new call weight
-PRESSURE=$(python3 -c "print(round(max(0, $PRESSURE - $DECAY) + $WEIGHT, 2))" 2>/dev/null || echo "$PRESSURE")
+PRESSURE=$(awk "BEGIN{v=$PRESSURE - $DECAY; if(v<0)v=0; printf \"%.2f\", v + $WEIGHT}" 2>/dev/null || echo "$PRESSURE")
 CALLS=$((CALLS + 1))
 
 # Write updated state
@@ -64,11 +64,11 @@ _ic_write_state "$SF" "$NEW_STATE"
 
 # Determine threshold level
 LEVEL=""
-if (( EST_TOKENS > 200000 )) || python3 -c "exit(0 if $PRESSURE > 120 else 1)" 2>/dev/null; then
+if (( EST_TOKENS > 200000 )) || awk "BEGIN{exit($PRESSURE > 120 ? 0 : 1)}" 2>/dev/null; then
   LEVEL="red"
-elif (( EST_TOKENS > 180000 )) || python3 -c "exit(0 if $PRESSURE > 90 else 1)" 2>/dev/null; then
+elif (( EST_TOKENS > 180000 )) || awk "BEGIN{exit($PRESSURE > 90 ? 0 : 1)}" 2>/dev/null; then
   LEVEL="orange"
-elif (( EST_TOKENS > 150000 )) || python3 -c "exit(0 if $PRESSURE > 60 else 1)" 2>/dev/null; then
+elif (( EST_TOKENS > 150000 )) || awk "BEGIN{exit($PRESSURE > 60 ? 0 : 1)}" 2>/dev/null; then
   LEVEL="yellow"
 fi
 
