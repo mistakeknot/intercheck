@@ -7,6 +7,5 @@
   },
   "skills": [
     "./skills/status"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
