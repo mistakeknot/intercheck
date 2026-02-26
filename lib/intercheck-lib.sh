@@ -26,7 +26,7 @@ _ic_read_state() {
   if [[ -f "$sf" ]]; then
     cat "$sf"
   else
-    echo '{"calls":0,"last_call_ts":0,"pressure":0,"heavy_calls":0,"est_tokens":0,"syntax_errors":0,"format_runs":0}'
+    echo '{"syntax_errors":0,"format_runs":0}'
   fi
 }
 

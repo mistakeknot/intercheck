@@ -1,6 +1,11 @@
+---
+name: status
+description: Show code quality metrics for this session
+---
+
 # Intercheck Status
 
-Show the current session's health metrics from intercheck's monitoring hooks.
+Show the current session's code quality metrics from intercheck's hooks.
 
 ## Instructions
 
@@ -8,26 +13,14 @@ Read the session state file at `/tmp/intercheck-${SESSION_ID}.json` where `SESSI
 
 If the file doesn't exist, report "No intercheck data for this session (hooks may not be active)."
 
-If the file exists, parse the JSON and display a health dashboard:
+If the file exists, parse the JSON and display:
 
 ```
-Session Health
+Code Quality
 ──────────────────────────────
-Context pressure:  {pressure} [{bar}] {level}
-Estimated tokens:  ~{est_tokens/1000}k / 200k
-Tool calls:        {calls} ({heavy_calls} heavy)
-Session age:       {computed from first call to now}
 Syntax errors:     {syntax_errors}
 Auto-formats:      {format_runs}
 ──────────────────────────────
 ```
 
-For the pressure bar, use a 16-char bar where filled = pressure/120 * 16.
-For the level label: Green (< 60), Yellow (60-89), Orange (90-119), Red (>= 120).
-
-Also check the token thresholds: Yellow >= 150k, Orange >= 180k, Red >= 200k. Report whichever level is higher between pressure and tokens.
-
-If the session is in Yellow or above, add a recommendation line:
-- Yellow: "Tip: Consider committing current work before starting new tasks."
-- Orange: "Warning: Finish current work and commit. Avoid new subagents."
-- Red: "URGENT: Context near exhaustion. Commit and wrap up immediately."
+For session pressure and token monitoring, use `/interpulse:status`.
