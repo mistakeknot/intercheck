@@ -1,6 +1,6 @@
 ---
-name: status
-description: Show code quality metrics for this session
+name: quality
+description: Show code quality metrics for this session — syntax errors, auto-format runs. Not for context pressure (use /interpulse:pressure) or agent activity (use /intermux:agents).
 ---
 
 # Intercheck Status
@@ -23,4 +23,4 @@ Auto-formats:      {format_runs}
 ──────────────────────────────
 ```
 
-For session pressure and token monitoring, use `/interpulse:status`.
+For session pressure and token monitoring, use `/interpulse:pressure`.

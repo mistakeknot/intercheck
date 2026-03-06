@@ -1,11 +1,11 @@
 {
   "name": "intercheck",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Code quality guards and session health monitoring",
   "author": {
     "name": "MK"
   },
   "skills": [
-    "./skills/status"
+    "./skills/quality"
   ]
 }

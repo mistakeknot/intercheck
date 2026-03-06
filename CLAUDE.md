@@ -13,4 +13,4 @@ Session state stored at `/tmp/intercheck-${SESSION_ID}.json`. Contains syntax er
 
 ## Skill
 
-- `/intercheck:status` — Show code quality metrics for this session.
+- `/intercheck:quality` — Show code quality metrics for this session.
