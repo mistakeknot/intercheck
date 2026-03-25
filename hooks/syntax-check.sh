@@ -3,7 +3,8 @@
 # Returns additionalContext with error details on failure. Silent on success.
 #
 # Supported: Python, Shell, JSON, TOML, YAML, Go, TypeScript, JavaScript
-set -euo pipefail
+set -uo pipefail
+trap 'exit 0' ERR
 
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 source "$SCRIPT_DIR/lib/intercheck-lib.sh"

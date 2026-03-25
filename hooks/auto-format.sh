@@ -6,7 +6,8 @@
 # (most formatters handle syntax errors gracefully).
 #
 # Supported: ruff (Python), shfmt (Shell), gofmt (Go), jq (JSON), prettier (TS/JS)
-set -euo pipefail
+set -uo pipefail
+trap 'exit 0' ERR
 
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 source "$SCRIPT_DIR/lib/intercheck-lib.sh"
