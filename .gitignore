@@ -6,6 +6,11 @@ __pycache__/
 .claude/
 .beads/
 
+# Agent-runtime db artifacts
+.clavain/**/*.db-shm
+.clavain/**/*.db-wal
+.clavain/intercore.db*
+
 # OS
 .DS_Store
 
