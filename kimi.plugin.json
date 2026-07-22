@@ -1,0 +1,25 @@
+{
+  "name": "intercheck",
+  "version": "0.2.2",
+  "description": "Code quality guards and session health monitoring",
+  "author": "MK",
+  "interface": {
+    "displayName": "intercheck",
+    "shortDescription": "Code quality guards and session health monitoring"
+  },
+  "skills": "./skills/",
+  "hooks": [
+    {
+      "event": "PostToolUse",
+      "matcher": "Edit|Write",
+      "command": "${KIMI_PLUGIN_ROOT}/hooks/syntax-check.sh",
+      "timeout": 5
+    },
+    {
+      "event": "PostToolUse",
+      "matcher": "Edit|Write",
+      "command": "${KIMI_PLUGIN_ROOT}/hooks/auto-format.sh",
+      "timeout": 10
+    }
+  ]
+}
