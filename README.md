@@ -1,6 +1,6 @@
 # intercheck
 
-Code quality guards and session health monitoring for Claude Code.
+Code quality guards and session health monitoring for Claude Code, Codex, and Kimi Code.
 
 ## What this does
 
